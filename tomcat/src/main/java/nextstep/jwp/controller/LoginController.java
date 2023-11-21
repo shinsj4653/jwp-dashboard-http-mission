@@ -24,7 +24,7 @@ public class LoginController extends AbstractController {
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
     @Override
-    protected HttpResponse doPost(final HttpRequest request) throws URISyntaxException {
+    protected void doPost(final HttpRequest request, final HttpResponse response) throws URISyntaxException {
         final QueryParams queryParams = request.getQueryParams();
         final String account = queryParams.getValueFromKey("account");
         final String password = queryParams.getValueFromKey("password");
@@ -35,37 +35,51 @@ public class LoginController extends AbstractController {
         if (user.checkPassword(password)) {
             log.info("User : {}", user);
             final Session session = saveUserInSession(user);
-            return makeLoginSuccessResponse(request, session);
+            loginWithSuccessResponse(request, response, session);
+            return;
         }
-        return HttpResponse.of(UNAUTHORIZED, HTML, Location.from("/401.html"));
+
+        response.setResponse(FOUND, HTML, Location.from("/401.html"));
+        response.print();
     }
 
     @Override
-    protected HttpResponse doGet(final HttpRequest request) throws URISyntaxException {
+    protected void doGet(final HttpRequest request, final HttpResponse response) throws URISyntaxException {
         final Optional<Cookie> optionalCookie = request.getJSessionCookie();
         if (optionalCookie.isPresent()) {
             final Cookie cookie = optionalCookie.get();
             handleSession(cookie);
-            return HttpResponse.of(FOUND, HTML, Location.from("/index.html"));
+
+            response.setResponse(FOUND, HTML, Location.from("/index.html"));
+            response.print();
+            return;
         }
 
-        return HttpResponse.of(OK, HTML, "/login.html");
+        response.setResponse(OK, HTML, "/login.html");
+        response.print();
     }
 
     private static Session saveUserInSession(User user) {
         final Session session = new Session();
         session.setAttribute("user", user);
         SessionManager.add(session);
+
+        log.info("sessionId : {}", session.getId());
+
         return session;
     }
-    private static HttpResponse makeLoginSuccessResponse(HttpRequest request, Session session) throws URISyntaxException {
+
+    private static void loginWithSuccessResponse(HttpRequest request, HttpResponse response, Session session) throws URISyntaxException {
         final Optional<Cookie> cookie = request.getJSessionCookie();
         if (cookie.isEmpty()) {
             final Cookie jsessionid = Cookie.ofJSessionId(session.getId());
-            return HttpResponse.of(FOUND, HTML, Location.from("/index.html"), jsessionid);
+
+            response.setResponse(FOUND, HTML, Location.from("/index.html"), jsessionid);
+            response.print();
+            return;
         }
 
-        return HttpResponse.of(FOUND, HTML, Location.from("/index.html"));
+        response.setResponse(FOUND, HTML, Location.from("/index.html"));
     }
 
     private static void handleSession(Cookie cookie) {

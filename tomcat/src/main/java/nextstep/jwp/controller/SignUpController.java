@@ -22,29 +22,27 @@ public class SignUpController extends AbstractController {
     private static final Logger log = LoggerFactory.getLogger(SignUpController.class);
 
     @Override
-    protected HttpResponse doPost(final HttpRequest request) throws URISyntaxException {
+    protected void doPost(final HttpRequest request, final HttpResponse response) throws URISyntaxException {
         final QueryParams queryParams = request.getQueryParams();
-
         final String account = queryParams.getValueFromKey("account");
         final String password = queryParams.getValueFromKey("password");
         final String email = queryParams.getValueFromKey("email");
 
         checkAlreadyExistUser(account);
-
         final User user = new User(account, password, email);
-
         InMemoryUserRepository.save(user);
+        log.info("회원가입 성공! : {}", user);
 
-        final String userInformation = user.toString();
-        log.info("회원가입 성공! : {}", userInformation);
-
-        return HttpResponse.of(FOUND, HTML, Location.from("/index.html"));
+        response.setResponse(FOUND, HTML, Location.from("/index.html"));
+        response.print();
     }
 
     @Override
-    protected HttpResponse doGet(final HttpRequest request) throws URISyntaxException {
+    protected void doGet(final HttpRequest request, final HttpResponse response) throws URISyntaxException {
         final String requestPath = request.getRequestPath();
-        return HttpResponse.of(OK, ContentType.from(requestPath), requestPath);
+
+        response.setResponse(OK, ContentType.from(requestPath), requestPath);
+        response.print();
     }
 
     private static void checkAlreadyExistUser(String account) {

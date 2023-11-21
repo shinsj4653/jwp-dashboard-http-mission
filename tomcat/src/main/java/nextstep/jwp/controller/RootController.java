@@ -10,13 +10,10 @@ import static org.apache.coyote.response.StatusCode.OK;
 
 public class RootController extends AbstractController {
     @Override
-    protected HttpResponse doPost(final HttpRequest request) throws URISyntaxException {
+    protected void doGet(final HttpRequest request, final HttpResponse response) throws URISyntaxException {
         final String requestPath = request.getRequestPath();
-        return HttpResponse.of(OK, ContentType.from(requestPath), requestPath);
-    }
 
-    @Override
-    protected HttpResponse doGet(final HttpRequest request) throws URISyntaxException {
-        return doPost(request);
+        response.setResponse(OK, ContentType.from(requestPath), requestPath);
+        response.print();
     }
 }

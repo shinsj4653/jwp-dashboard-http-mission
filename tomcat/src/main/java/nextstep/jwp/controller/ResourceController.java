@@ -8,16 +8,13 @@ import java.net.URISyntaxException;
 
 import static org.apache.coyote.response.StatusCode.OK;
 
-public class ResourceController extends AbstractController{
-
+public class ResourceController extends AbstractController {
     @Override
-    protected HttpResponse doPost(final HttpRequest request) throws URISyntaxException {
-        return doGet(request);
-    }
-
-    @Override
-    protected HttpResponse doGet(final HttpRequest request) throws URISyntaxException {
+    protected void doGet(final HttpRequest request, final HttpResponse response) throws URISyntaxException {
         final String requestPath = request.getRequestPath();
-        return HttpResponse.of(OK, ContentType.from(requestPath), requestPath);
+
+        response.setResponse(OK, ContentType.from(requestPath), requestPath);
+
+        response.print();
     }
 }
