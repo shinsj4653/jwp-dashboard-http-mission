@@ -31,7 +31,7 @@ public class HttpRequestBody {
     }
 
 
-    public QueryParams getBodyWithQueryParam() {
+    public QueryParams getBodyWithQueryParamForm() {
         return QueryParams.from(requestBody);
     }
 

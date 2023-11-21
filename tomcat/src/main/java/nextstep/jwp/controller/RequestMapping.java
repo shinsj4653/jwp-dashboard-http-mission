@@ -1,5 +1,6 @@
 package nextstep.jwp.controller;
 
+import org.apache.coyote.controller.Controller;
 import org.apache.coyote.request.startline.HttpRequest;
 
 import java.util.HashMap;

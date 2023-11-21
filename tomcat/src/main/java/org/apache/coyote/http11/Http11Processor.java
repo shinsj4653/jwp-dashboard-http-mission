@@ -1,6 +1,6 @@
 package org.apache.coyote.http11;
 
-import nextstep.jwp.controller.Controller;
+import org.apache.coyote.controller.Controller;
 import nextstep.jwp.controller.ControllerAdvice;
 import nextstep.jwp.controller.RequestMapping;
 import org.apache.coyote.Processor;

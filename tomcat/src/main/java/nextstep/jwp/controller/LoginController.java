@@ -3,6 +3,7 @@ package nextstep.jwp.controller;
 import nextstep.jwp.db.InMemoryUserRepository;
 import nextstep.jwp.exception.notfound.NotFoundUserException;
 import nextstep.jwp.model.User;
+import org.apache.coyote.controller.AbstractController;
 import org.apache.coyote.cookie.Cookie;
 import org.apache.coyote.request.query.QueryParams;
 import org.apache.coyote.request.startline.HttpRequest;
