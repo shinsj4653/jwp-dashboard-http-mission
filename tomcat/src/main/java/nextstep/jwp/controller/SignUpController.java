@@ -11,6 +11,7 @@ import org.apache.coyote.response.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URISyntaxException;
 import java.util.Optional;
 
 import static org.apache.coyote.response.ContentType.HTML;
@@ -21,7 +22,7 @@ public class SignUpController extends AbstractController {
     private static final Logger log = LoggerFactory.getLogger(SignUpController.class);
 
     @Override
-    protected void doPost(final HttpRequest request, final HttpResponse response) throws Exception {
+    protected void doPost(final HttpRequest request, final HttpResponse response) throws URISyntaxException {
         final QueryParams queryParams = request.getQueryParams();
         final String account = queryParams.getValueFromKey("account");
         final String password = queryParams.getValueFromKey("password");
@@ -37,7 +38,7 @@ public class SignUpController extends AbstractController {
     }
 
     @Override
-    protected void doGet(final HttpRequest request, final HttpResponse response) throws Exception {
+    protected void doGet(final HttpRequest request, final HttpResponse response) throws URISyntaxException {
         final String requestPath = request.getRequestPath();
 
         response.setResponse(OK, ContentType.from(requestPath), requestPath);

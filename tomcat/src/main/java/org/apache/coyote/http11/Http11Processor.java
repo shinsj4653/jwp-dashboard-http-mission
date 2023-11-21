@@ -48,7 +48,7 @@ public class Http11Processor implements Runnable, Processor {
             final Controller controller = RequestMapping.getController(httpRequest);
             controller.service(httpRequest, httpResponse);
         } catch(Exception e) {
-            ControllerAdvice.handle(httpResponse, e);
+            ControllerAdvice.handle(httpResponse, e.getClass().getSimpleName(), e.getMessage());
         }
     }
 }

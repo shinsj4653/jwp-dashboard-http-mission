@@ -23,10 +23,8 @@ public class LoginController extends AbstractController {
 
     private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
-    private static SessionManager sessionManager;
-
     @Override
-    protected void doPost(final HttpRequest request, final HttpResponse response) throws Exception {
+    protected void doPost(final HttpRequest request, final HttpResponse response) throws URISyntaxException {
         final QueryParams queryParams = request.getQueryParams();
         final String account = queryParams.getValueFromKey("account");
         final String password = queryParams.getValueFromKey("password");
@@ -71,7 +69,7 @@ public class LoginController extends AbstractController {
         return session;
     }
 
-    private static void loginWithSuccessResponse(HttpRequest request, HttpResponse response, Session session) throws Exception {
+    private static void loginWithSuccessResponse(HttpRequest request, HttpResponse response, Session session) throws URISyntaxException {
         final Optional<Cookie> cookie = request.getJSessionCookie();
         if (cookie.isEmpty()) {
             final Cookie jsessionid = Cookie.ofJSessionId(session.getId());

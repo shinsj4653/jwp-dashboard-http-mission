@@ -4,6 +4,8 @@ import org.apache.coyote.request.startline.HttpRequest;
 import org.apache.coyote.request.startline.HttpMethod;
 import org.apache.coyote.response.HttpResponse;
 
+import java.net.URISyntaxException;
+
 import static org.apache.coyote.request.startline.HttpMethod.*;
 
 public abstract class AbstractController implements Controller {
@@ -20,7 +22,7 @@ public abstract class AbstractController implements Controller {
         }
     }
 
-    protected void doPost(HttpRequest request, HttpResponse httpResponse) throws Exception {
+    protected void doPost(HttpRequest request, HttpResponse httpResponse) throws URISyntaxException {
         throw new UnsupportedOperationException();
     }
     protected void doGet(HttpRequest request, HttpResponse httpResponse) throws Exception {
