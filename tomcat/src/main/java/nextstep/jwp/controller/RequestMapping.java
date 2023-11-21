@@ -16,8 +16,13 @@ public class RequestMapping {
         controllers.put("/register.html", new SignUpController());
     }
 
-    public static Optional<Controller> getController(HttpRequest request) {
+    public static Controller getController(HttpRequest request) {
         final String requestPath = request.getRequestPath();
-        return Optional.ofNullable(controllers.get(requestPath));
+        return controllers.keySet()
+                .stream()
+                .filter(path -> path.equals(requestPath))
+                .map(controllers::get)
+                .findAny()
+                .orElse(new ResourceController());
     }
 }

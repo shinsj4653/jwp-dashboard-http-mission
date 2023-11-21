@@ -6,5 +6,5 @@ import org.apache.coyote.response.HttpResponse;
 import java.net.URISyntaxException;
 
 public interface Controller {
-    void service(HttpRequest request, HttpResponse response) throws URISyntaxException;
+    void service(HttpRequest request, HttpResponse response) throws Exception;
 }

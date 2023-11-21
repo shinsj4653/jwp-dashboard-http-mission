@@ -1,5 +1,9 @@
 package org.apache.coyote.cookie;
 
+import org.apache.coyote.http11.Http11Processor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,6 +11,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Cookies {
+
+    private static final Logger log = LoggerFactory.getLogger(Cookies.class);
 
     private static final String COOKIE_DELIMITER = "; ";
 
@@ -21,6 +27,10 @@ public class Cookies {
     }
 
     public static Cookies from(String cookie) {
+
+        log.info("enter Cookies");
+        log.info("cookie : {}", cookie);
+
         if (cookie == null) {
             return new Cookies();
         }

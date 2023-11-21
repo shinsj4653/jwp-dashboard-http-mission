@@ -2,9 +2,12 @@ package org.apache.coyote.request;
 
 import org.apache.coyote.cookie.Cookie;
 import org.apache.coyote.cookie.Cookies;
+import org.apache.coyote.http11.Http11Processor;
 import org.apache.coyote.query.QueryParams;
 import org.apache.coyote.request.startline.HttpMethod;
 import org.apache.coyote.request.startline.StartLine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,18 +19,16 @@ import static org.apache.coyote.http11.Http11Processor.*;
 import static org.apache.coyote.request.startline.HttpMethod.GET;
 
 public class HttpRequest {
-
+    private static final Logger log = LoggerFactory.getLogger(HttpRequest.class);
     private static final int KEY_INDEX = 0;
     private static final int VALUE_INDEX = 1;
     private static final String HEADER_DELIMITER = ": ";
-
     private static final String HTML_EXTENSION = ".html";
     private static final String QUERY_START_CHARACTER = "?";
     private static final String ROOT = "/";
     private static final String EXTENSION_CHARACTER = ".";
     private static final String DEFAULT_PAGE_URL = "/index.html";
     private static final String COOKIE_HEADER = "Cookie";
-
     private static final String CONTENT_LENGTH = "Content-Length";
 
     private final StartLine startLine;
@@ -35,7 +36,7 @@ public class HttpRequest {
     private final Cookies cookies;
     private final HttpRequestBody requestBody;
 
-    public HttpRequest(StartLine startLine, HttpHeader headers, Cookies cookies, HttpRequestBody requestBody) {
+    private HttpRequest(StartLine startLine, HttpHeader headers, Cookies cookies, HttpRequestBody requestBody) {
         this.startLine = startLine;
         this.headers = headers;
         this.cookies = cookies;
@@ -44,6 +45,8 @@ public class HttpRequest {
 
     public static HttpRequest of(final String startLine, final Map<String, String> headers, final String requestBody) {
         final String cookie = headers.get(COOKIE_HEADER);
+
+        log.info("cookie : {}", cookie);
 
         return new HttpRequest(StartLine.from(startLine), HttpHeader.from(headers), Cookies.from(cookie),
                 HttpRequestBody.from(requestBody));
@@ -68,6 +71,10 @@ public class HttpRequest {
         return startLine.getMethod();
     }
 
+    public Cookies getCookies() {
+        return cookies;
+    }
+
     public Optional<Cookie> getJSessionCookie() {
         return cookies.getJSessionCookie();
     }
@@ -80,6 +87,9 @@ public class HttpRequest {
     }
 
     private static Map<String, String> readHttpHeaderLines(BufferedReader bufferedReader) throws IOException {
+
+        log.info("enter readHttpHeaderLines");
+
         final Map<String, String> httpHeaderLines = new HashMap<>();
         String line;
 
@@ -87,8 +97,9 @@ public class HttpRequest {
             if (line.isBlank()) {
                 break;
             }
+//            log.info("line : {}", line);
             final String[] header = line.split(HEADER_DELIMITER);
-            httpHeaderLines.put(header[KEY_INDEX], header[VALUE_INDEX].trim());
+            httpHeaderLines.put(header[KEY_INDEX], header[VALUE_INDEX]);
         }
 
         return httpHeaderLines;

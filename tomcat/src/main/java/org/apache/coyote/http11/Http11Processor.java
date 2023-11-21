@@ -1,6 +1,7 @@
 package org.apache.coyote.http11;
 
 import nextstep.jwp.controller.Controller;
+import nextstep.jwp.controller.ControllerAdvice;
 import nextstep.jwp.controller.RequestMapping;
 import nextstep.jwp.controller.ResourceController;
 import nextstep.jwp.exception.UncheckedServletException;
@@ -41,25 +42,17 @@ public class Http11Processor implements Runnable, Processor {
             final HttpResponse httpResponse = HttpResponse.from(outputStream);
 
             handleRequest(httpRequest, httpResponse);
-        } catch (IOException | UncheckedServletException | URISyntaxException e) {
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
     }
 
-    private static void handleRequest(final HttpRequest httpRequest, final HttpResponse httpResponse) throws URISyntaxException {
-        final Optional<Controller> controller = RequestMapping.getController(httpRequest);
-        controller.ifPresent(
-                (it) -> {
-                    try {
-                        it.service(httpRequest, httpResponse);
-                    } catch (URISyntaxException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-        );
-
-        if (controller.isEmpty()) {
-            new ResourceController().service(httpRequest, httpResponse);
+    private static void handleRequest(final HttpRequest httpRequest, final HttpResponse httpResponse) throws Exception {
+        try {
+            final Controller controller = RequestMapping.getController(httpRequest);
+            controller.service(httpRequest, httpResponse);
+        } catch(Exception e) {
+            ControllerAdvice.handle(httpResponse, e);
         }
     }
 }

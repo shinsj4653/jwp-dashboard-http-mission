@@ -20,7 +20,7 @@ public class Cookie {
         final String[] splitCookie = cookie.split(COOKIE_DELIMITER);
         checkCookieValue(splitCookie);
 
-        return new Cookie(splitCookie[KEY_INDEX], splitCookie[VALUE_INDEX]);
+        return new Cookie(splitCookie[KEY_INDEX].trim(), splitCookie[VALUE_INDEX].trim());
     }
 
     public static Cookie empty() {
