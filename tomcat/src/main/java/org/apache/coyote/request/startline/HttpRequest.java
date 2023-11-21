@@ -1,11 +1,10 @@
-package org.apache.coyote.request;
+package org.apache.coyote.request.startline;
 
 import org.apache.coyote.cookie.Cookie;
 import org.apache.coyote.cookie.Cookies;
-import org.apache.coyote.http11.Http11Processor;
-import org.apache.coyote.query.QueryParams;
-import org.apache.coyote.request.startline.HttpMethod;
-import org.apache.coyote.request.startline.StartLine;
+import org.apache.coyote.request.query.QueryParams;
+import org.apache.coyote.request.HttpHeader;
+import org.apache.coyote.request.HttpRequestBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.apache.coyote.http11.Http11Processor.*;
 import static org.apache.coyote.request.startline.HttpMethod.GET;
 
 public class HttpRequest {

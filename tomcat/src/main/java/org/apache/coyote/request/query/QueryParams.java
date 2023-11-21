@@ -1,4 +1,4 @@
-package org.apache.coyote.query;
+package org.apache.coyote.request.query;
 
 import java.util.ArrayList;
 import java.util.List;

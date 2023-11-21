@@ -1,10 +1,9 @@
 package nextstep.jwp.controller;
 
-import org.apache.coyote.request.HttpRequest;
+import org.apache.coyote.request.startline.HttpRequest;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class RequestMapping {
     private static final Map<String, Controller> controllers = new HashMap<>();

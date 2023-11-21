@@ -1,4 +1,4 @@
-package org.apache.coyote.query;
+package org.apache.coyote.request.query;
 
 public class QueryParam {
     private static final String QUERY_PARAMETER_DELIMITER = "=";

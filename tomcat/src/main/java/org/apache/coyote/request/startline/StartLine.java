@@ -1,6 +1,6 @@
 package org.apache.coyote.request.startline;
 
-import org.apache.coyote.query.QueryParams;
+import org.apache.coyote.request.query.QueryParams;
 import org.apache.coyote.request.HttpRequestPath;
 
 public class StartLine {

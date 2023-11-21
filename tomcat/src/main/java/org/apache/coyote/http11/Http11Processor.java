@@ -3,18 +3,14 @@ package org.apache.coyote.http11;
 import nextstep.jwp.controller.Controller;
 import nextstep.jwp.controller.ControllerAdvice;
 import nextstep.jwp.controller.RequestMapping;
-import nextstep.jwp.controller.ResourceController;
-import nextstep.jwp.exception.UncheckedServletException;
 import org.apache.coyote.Processor;
-import org.apache.coyote.request.HttpRequest;
+import org.apache.coyote.request.startline.HttpRequest;
 import org.apache.coyote.response.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.URISyntaxException;
-import java.util.Optional;
 
 public class Http11Processor implements Runnable, Processor {
 

@@ -4,8 +4,8 @@ import nextstep.jwp.db.InMemoryUserRepository;
 import nextstep.jwp.exception.notfound.NotFoundUserException;
 import nextstep.jwp.model.User;
 import org.apache.coyote.cookie.Cookie;
-import org.apache.coyote.query.QueryParams;
-import org.apache.coyote.request.HttpRequest;
+import org.apache.coyote.request.query.QueryParams;
+import org.apache.coyote.request.startline.HttpRequest;
 import org.apache.coyote.response.HttpResponse;
 import org.apache.coyote.response.Location;
 import org.apache.coyote.session.Session;
@@ -13,7 +13,6 @@ import org.apache.coyote.session.SessionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.print.URIException;
 import java.net.URISyntaxException;
 import java.util.Optional;
 

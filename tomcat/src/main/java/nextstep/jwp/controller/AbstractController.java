@@ -1,10 +1,8 @@
 package nextstep.jwp.controller;
 
-import org.apache.coyote.request.HttpRequest;
+import org.apache.coyote.request.startline.HttpRequest;
 import org.apache.coyote.request.startline.HttpMethod;
 import org.apache.coyote.response.HttpResponse;
-
-import java.net.URISyntaxException;
 
 import static org.apache.coyote.request.startline.HttpMethod.*;
 

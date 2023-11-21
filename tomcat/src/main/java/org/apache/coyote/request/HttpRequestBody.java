@@ -1,6 +1,6 @@
 package org.apache.coyote.request;
 
-import org.apache.coyote.query.QueryParams;
+import org.apache.coyote.request.query.QueryParams;
 
 public class HttpRequestBody {
     private final String requestBody;

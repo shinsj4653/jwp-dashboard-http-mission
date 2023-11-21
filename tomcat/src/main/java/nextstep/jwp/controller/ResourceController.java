@@ -1,11 +1,10 @@
 package nextstep.jwp.controller;
 
 import javassist.NotFoundException;
-import org.apache.coyote.request.HttpRequest;
+import org.apache.coyote.request.startline.HttpRequest;
 import org.apache.coyote.response.ContentType;
 import org.apache.coyote.response.HttpResponse;
 
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import static org.apache.coyote.response.StatusCode.OK;
