@@ -71,6 +71,10 @@ public class StartLine {
         return startLineElements;
     }
 
+    public boolean isSameMethod(HttpMethod httpMethod) {
+        return this.method.equals(httpMethod);
+    }
+
     private static void checkStartLineSize(String[] startLineElements) {
         if (startLineElements.length != START_LINE_ELEMENT_SIZE) {
             throw new IllegalArgumentException("잘못된 HTTP 요청입니다.");
